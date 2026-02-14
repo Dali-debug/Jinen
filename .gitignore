@@ -76,3 +76,4 @@ package-lock.json
 index.html
 vite.config.ts
 src/
+.env.newstack

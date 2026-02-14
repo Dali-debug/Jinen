@@ -6,9 +6,9 @@ services:
     image: mongo:7.0
     container_name: jinen_mongodb
     environment:
-      MONGO_INITDB_ROOT_USERNAME: admin
-      MONGO_INITDB_ROOT_PASSWORD: admin123
-      MONGO_INITDB_DATABASE: nursery_db
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
+      MONGO_INITDB_DATABASE: ${MONGO_INITDB_DATABASE:-nursery_db}
     ports:
       - "27017:27017"
     volumes:
@@ -29,10 +29,11 @@ services:
       - ./backend-spring-boot:/app
       - maven_cache:/root/.m2
     environment:
-      SPRING_DATA_MONGODB_URI: mongodb://admin:admin123@mongodb:27017/nursery_db?authSource=admin
-      SPRING_DATA_MONGODB_DATABASE: nursery_db
-      JWT_SECRET: your-secret-key-change-this-in-production-min-256-bits-long-for-security
-      JWT_EXPIRATION: 86400000
+      SPRING_DATA_MONGODB_URI: ${SPRING_DATA_MONGODB_URI}
+      SPRING_DATA_MONGODB_DATABASE: ${SPRING_DATA_MONGODB_DATABASE:-nursery_db}
+      JWT_SECRET: ${JWT_SECRET}
+      JWT_EXPIRATION: ${JWT_EXPIRATION:-86400000}
+      CORS_ALLOWED_ORIGINS: ${CORS_ALLOWED_ORIGINS:-http://localhost:4200}
     ports:
       - "8080:8080"
     command: sh -c "mvn clean install -DskipTests && mvn spring-boot:run"
@@ -60,3 +61,4 @@ volumes:
   mongodb_data:
   maven_cache:
   node_modules:
+

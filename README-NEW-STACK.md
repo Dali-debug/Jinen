@@ -32,20 +32,28 @@ This is the modernized web version of the JINEN Nursery Management System, migra
 
 ### Quick Start with Docker
 
-1. **Start all services:**
+1. **Create environment file:**
 ```bash
-docker-compose -f docker-compose-new-stack.yml up -d
+cp .env.newstack.example .env.newstack
+# Edit .env.newstack and change the passwords and JWT secret
 ```
 
-2. **Access the application:**
+2. **Start all services:**
+```bash
+docker-compose -f docker-compose-new-stack.yml --env-file .env.newstack up -d
+```
+
+3. **Access the application:**
 - Frontend: http://localhost:4200
 - Backend API: http://localhost:8080
 - MongoDB: localhost:27017
 
-3. **Stop all services:**
+4. **Stop all services:**
 ```bash
 docker-compose -f docker-compose-new-stack.yml down
 ```
+
+**⚠️ Security Note:** Always change the default passwords and JWT secret in the `.env.newstack` file before deploying to production!
 
 ### Local Development
 
@@ -184,17 +192,24 @@ The application uses JWT (JSON Web Token) for authentication:
 # Server
 server.port=8080
 
-# MongoDB
+# MongoDB (loaded from environment variables in Docker)
 spring.data.mongodb.uri=mongodb://localhost:27017/nursery_db
 spring.data.mongodb.database=nursery_db
 
-# JWT
-jwt.secret=your-secret-key-change-this-in-production
+# JWT - CRITICAL: Generate a strong 256-bit secret
+# Generate with: openssl rand -base64 32
+jwt.secret=${JWT_SECRET}
 jwt.expiration=86400000
 
 # CORS
 cors.allowed-origins=http://localhost:4200
 ```
+
+**⚠️ JWT Security:** The JWT secret must be a cryptographically strong random value of at least 256 bits (32+ bytes). Generate one using:
+```bash
+openssl rand -base64 32
+```
+Never use example values or simple strings in production!
 
 ### Frontend Configuration
 
