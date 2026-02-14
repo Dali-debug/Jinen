@@ -7,7 +7,7 @@ This is the modernized web version of the JINEN Nursery Management System, migra
 ## 🛠 Technology Stack
 
 ### Frontend
-- **Angular 17** - Modern TypeScript-based web framework
+- **Angular 19** - Modern TypeScript-based web framework
 - **Angular Router** - Client-side routing
 - **RxJS** - Reactive programming
 - **CSS3** - Responsive styling

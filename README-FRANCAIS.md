@@ -7,7 +7,7 @@ Application web moderne pour la gestion de garderies, développée avec **Angula
 ## 🛠 Technologies Utilisées
 
 ### Frontend
-- **Angular 17** - Framework web TypeScript
+- **Angular 19** - Framework web TypeScript
 - **CSS3** - Design responsive
 
 ### Backend  
